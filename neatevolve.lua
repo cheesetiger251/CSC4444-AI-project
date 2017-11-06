@@ -26,6 +26,18 @@ elseif gameinfo.getromname() == "Super Mario Bros." then
 		"Left",
 		"Right",
 	}
+--elseif gameinfo.getromname() == "Mega Man X (USA)" then
+--	Filename = "MM.state"
+--	ButtonNames = {
+--		"A",
+--		"B",
+--		"X",
+--		"Y",
+--		"Up",
+--		"Down",
+--		"Left",
+--		"Right",
+--	}
 end
 
 BoxRadius = 6
