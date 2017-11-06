@@ -83,6 +83,7 @@ function getPositions()
 	
 		screenX = memory.readbyte(0x03AD)
 		screenY = memory.readbyte(0x03B8)
+--TODO: add an elseif for Mega Man game of choice
 	end
 end
 
@@ -110,6 +111,7 @@ function getTile(dx, dy)
 		else
 			return 0
 		end
+--TODO: add an elseif for Mega Man game of choice
 	end
 end
 
@@ -138,6 +140,7 @@ function getSprites()
 		end
 		
 		return sprites
+--TODO: add an elseif for Mega Man game of choice
 	end
 end
 
@@ -156,6 +159,7 @@ function getExtendedSprites()
 		return extended
 	elseif gameinfo.getromname() == "Super Mario Bros." then
 		return {}
+--TODO: add an elseif for Mega Man game of choice
 	end
 end
 
@@ -1155,6 +1159,9 @@ saveLoadFile = forms.textbox(form, Filename .. ".pool", 170, 25, nil, 5, 148)
 saveLoadLabel = forms.label(form, "Save/Load:", 5, 129)
 playTopButton = forms.button(form, "Play Top", playTop, 5, 170)
 hideBanner = forms.checkbox(form, "Hide Banner", 5, 190)
+
+--TODO: edit fitness function for Mega Man game of choice vvv
+
 
 
 while true do
