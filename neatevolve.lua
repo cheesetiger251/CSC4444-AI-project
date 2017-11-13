@@ -83,7 +83,16 @@ function getPositions()
 	
 		screenX = memory.readbyte(0x03AD)
 		screenY = memory.readbyte(0x03B8)
---TODO: add an elseif for Mega Man game of choice
+   	elseif gameinfo.getromname() == "Mega Man X (USA)" then
+        megamanX = memory.read_s16_le(0x0BAD)
+		megamanY = memory.read_s16_le(0x0BB0)
+		
+		--These may be wrong, assumed to be same across snes
+		local layer1x = memory.read_s16_le(0x1A);	
+		local layer1y = memory.read_s16_le(0x1C);
+
+        screenX = megamanX-layer1x
+        screenY = megamanY-layer1y
 	end
 end
 
@@ -159,7 +168,7 @@ function getExtendedSprites()
 		return extended
 	elseif gameinfo.getromname() == "Super Mario Bros." then
 		return {}
---TODO: add an elseif for Mega Man game of choice
+	--Assumed to not be relevant
 	end
 end
 
