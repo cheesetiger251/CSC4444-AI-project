@@ -26,6 +26,18 @@ elseif gameinfo.getromname() == "Super Mario Bros." then
 		"Left",
 		"Right",
 	}
+--elseif gameinfo.getromname() == "Mega Man X (USA)" then
+--	Filename = "MM.state"
+--	ButtonNames = {
+--		"A",
+--		"B",
+--		"X",
+--		"Y",
+--		"Up",
+--		"Down",
+--		"Left",
+--		"Right",
+--	}
 end
 
 BoxRadius = 6
@@ -71,6 +83,7 @@ function getPositions()
 	
 		screenX = memory.readbyte(0x03AD)
 		screenY = memory.readbyte(0x03B8)
+--TODO: add an elseif for Mega Man game of choice
 	end
 end
 
@@ -98,8 +111,10 @@ function getTile(dx, dy)
 		else
 			return 0
 		end
+--TODO: add an elseif for Mega Man game of choice
 	end
 end
+
 
 function getSprites()
 	if gameinfo.getromname() == "Super Mario World (USA)" then
@@ -126,6 +141,29 @@ function getSprites()
 		end
 		
 		return sprites
+	elseif gameinfo.getromname() == "Mega Man X (USA)" then
+		local sprites = {}
+		for slot=0,7 do
+            --$7E:0BBF	1 byte	X's sprite (bits 0-7).
+			local status = memory.readbyte(0x0BBF+slot)
+
+            -- $7E:0BAC	1 byte	X's sub-pixel X-position.
+            -- $7E:0BAD	2 bytes	X's X-position, in pixels.
+            -- $7E:0BAF	1 byte	X's sub-pixel Y-position.
+            -- $7E:0BB0	2 bytes	X's Y-position, in pixels.
+            --
+            -- 7E:0BAC - 7E:0BAE    X's X-position (24-bit)
+            -- 7E:0BAF - 7E:0BB1    X's Y-position (24-bit)
+			if status ~= 0 then
+				spritex = memory.readbyte(0x0BAD+slot) + memory.readbyte(0x0BAE+slot)*256
+				spritey = memory.readbyte(0x0BB0+slot) + memory.readbyte(0x0BB1+slot)*256
+				sprites[#sprites+1] = {["x"]=spritex, ["y"]=spritey}
+			end
+		end		
+		
+		return sprites
+
+--TODO: add an elseif for Mega Man game of choice
 	end
 end
 
@@ -144,6 +182,7 @@ function getExtendedSprites()
 		return extended
 	elseif gameinfo.getromname() == "Super Mario Bros." then
 		return {}
+--TODO: add an elseif for Mega Man game of choice
 	end
 end
 
@@ -1143,6 +1182,9 @@ saveLoadFile = forms.textbox(form, Filename .. ".pool", 170, 25, nil, 5, 148)
 saveLoadLabel = forms.label(form, "Save/Load:", 5, 129)
 playTopButton = forms.button(form, "Play Top", playTop, 5, 170)
 hideBanner = forms.checkbox(form, "Hide Banner", 5, 190)
+
+--TODO: edit fitness function for Mega Man game of choice vvv
+
 
 
 while true do
