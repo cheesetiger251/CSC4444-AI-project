@@ -93,14 +93,14 @@ function getPositions()
 	
 		screenX = memory.readbyte(0x03AD)
 		screenY = memory.readbyte(0x03B8)
-        elseif gameinfo.getromname() == "Mega Man 2" then
+	elseif gameinfo.getromname() == "Mega Man 2" then
 		marioX = memory.readbyte(0x0460)
 		marioY = memory.readbyte(0x04A0)
 	
 		screenX = memory.readbyte(0x03AD)
 		screenY = memory.readbyte(0x03B8)
    	elseif gameinfo.getromname() == "Mega Man X (USA) (Rev 1)" then
-        	marioX = memory.read_s16_le(0x0BAD)
+        marioX = memory.read_s16_le(0x0BAD)
 		marioY = memory.read_s16_le(0x0BB0)
 		
 		--These may be wrong, assumed to be same across snes
@@ -136,7 +136,7 @@ function getTile(dx, dy)
 		else
 			return 0
 		end
-        elseif gameinfo.getromname() == "Mega Man 2" then
+	elseif gameinfo.getromname() == "Mega Man 2" then
 		local x = marioX + dx + 8
 		local y = marioY + dy - 16
 		local page = math.floor(x/256)%2
@@ -238,7 +238,7 @@ function getExtendedSprites()
 		return extended
 	elseif gameinfo.getromname() == "Super Mario Bros." then
 		return {}
-        elseif gameinfo.getromname() == "Mega Man 2" then
+    elseif gameinfo.getromname() == "Mega Man 2" then
 		return {}
 	elseif gameinfo.getromname() == "Mega Man X (USA) (Rev 1)" then
 		return {}
@@ -1317,7 +1317,7 @@ while true do
 	if not forms.ischecked(hideBanner) then
 		gui.drawText(0, 0, "Gen " .. pool.generation .. " species " .. pool.currentSpecies .. " genome " .. pool.currentGenome .. " (" .. math.floor(measured/total*100) .. "%)", 0xFF000000, 11)
 		gui.drawText(0, 12, "Fitness: " .. math.floor(rightmost - (pool.currentFrame) / 2 - (timeout + timeoutBonus)*2/3), 0xFF000000, 11)
-		 .drawText(100, 12, "Max Fitness: " .. math.floor(pool.maxFitness), 0xFF000000, 11)
+		gui.drawText(100, 12, "Max Fitness: " .. math.floor(pool.maxFitness), 0xFF000000, 11)
 	end
 		
 	pool.currentFrame = pool.currentFrame + 1
